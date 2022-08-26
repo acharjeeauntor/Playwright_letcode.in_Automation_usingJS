@@ -55,11 +55,7 @@ export class WebActions {
     }
 
     async getBGColorCode(selector: string): Promise<string> {
-        await this.waitForElementAttached(selector);
-        const color = await this.page.locator(selector).evaluate((el) => {
-            return window.getComputedStyle(el).getPropertyValue('background-color');
-        });
-        return color
+       
     }
 
     async enterElementText(selector: string, text: string): Promise<void> {
