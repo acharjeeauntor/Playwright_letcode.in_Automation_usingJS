@@ -1,2 +1,4 @@
 node_modules/
-playwright-report/
+allure-results/
+html-report/
+html-report.zip
