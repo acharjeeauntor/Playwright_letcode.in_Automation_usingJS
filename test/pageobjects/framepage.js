@@ -1,43 +1,35 @@
-import { WebActions } from "@lib/WebActions"
-import { FramePageObjects } from "@objects/FramePageObjects"
-import { Page } from "@playwright/test"
-
-let webActions: WebActions
-let framePageObjects: FramePageObjects
-
-export class FramePage {
-    First_Frame_ID= "#firstFr"
-    Inner_Frame_Selector="[src='innerFrame']"
-    First_Name_Input_Selector= " [name='fname']"
-    Last_Name_Input_Selector= "[name='lname']"
-    Email_Input_Selector= "[name='email']"
+class FramePage {
+    firstFrameID= "#firstFr"
+    innerFrameSelector="[src='innerFrame']"
+    firstNameInputSelector= " [name='fname']"
+    lastNameInputSelector= "[name='lname']"
+    emailInputSelector= "[name='email']"
     
-    readonly page: Page
-    constructor(page: Page) {
+    
+    constructor(page) {
         this.page = page
-        webActions = new WebActions(this.page)
-        framePageObjects = new FramePageObjects()
     }
 
-    async navigateToUrl(): Promise<void> {
-        await webActions.navigateToURL("/frame")
+    async navigateToUrl() {
+        await this.page.goto("/frame")
     }
 
 
-    async enterName(firstName: string, lastName: string) {
-        const fnameLocatorForFirstName = this.page.frameLocator(framePageObjects.First_Frame_ID).locator(framePageObjects.First_Name_Input_Selector)
+    async enterName(firstName, lastName) {
+        const fnameLocatorForFirstName = this.page.frameLocator(this.firstFrameID).locator(this.firstNameInputSelector)
         await fnameLocatorForFirstName.type(firstName)
-        const fnameLocatorForLastName = this.page.frameLocator(framePageObjects.First_Frame_ID).locator(framePageObjects.Last_Name_Input_Selector)
+        const fnameLocatorForLastName = this.page.frameLocator(this.firstFrameID).locator(this.lastNameInputSelector)
         await fnameLocatorForLastName.type(lastName)
     }
 
-    async enterEmail(email:string) {
-        const fnameLocatorForEmail = this.page.frameLocator(framePageObjects.First_Frame_ID)
-        .frameLocator(framePageObjects.Inner_Frame_Selector)
-        .locator(framePageObjects.Email_Input_Selector)
+    async enterEmail(email) {
+        const fnameLocatorForEmail = this.page.frameLocator(this.firstFrameID)
+        .frameLocator(this.innerFrameSelector)
+        .locator(this.emailInputSelector)
         await fnameLocatorForEmail.type(email)
     }
 
 
 
 }
+module.exports = FramePage;

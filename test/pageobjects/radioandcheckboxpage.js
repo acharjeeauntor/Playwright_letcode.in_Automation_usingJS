@@ -1,52 +1,44 @@
-import { Page, PageScreenshotOptions } from "@playwright/test"
-import { WebActions } from "@lib/WebActions"
-import { RadioAndCheckboxPageObjects } from "@objects/RadioAndCheckboxPageObjects"
-
-let webActions: WebActions
-let radioAndCheckboxPageObjects: RadioAndCheckboxPageObjects
-
-export class RadioAndCheckboxPage {
-    Select_Any_One_Yes_ID="#yes"
-    Select_Any_One_No_ID="#no"
-    Select_Only_One_Yes_ID="#one"
-    Select_Only_One_No_ID="#two"
-    Select_Find_Bug_Yes_ID="#nobug"
-    Select_Find_Bug_No_ID="#bug"
-    Select_Foo_ID="#foo"
-    Select_Bar_ID="#notfoo"
-    Select_Maybe_ID="#maybe"
-    Select_Remember_Me_Text_Selector='text= Remember me'
-    Select_I_agree_to_the_Text_Selector='text=  I agree to the '
+class RadioAndCheckboxPage {
+    selectAnyOneYesID="#yes"
+    selectAnyOneNoID="#no"
+    selectOnlyOneYesID="#one"
+    selectOnlyOneNoID="#two"
+    selectFindBugYesID="#nobug"
+    selectFindBugNoID="#bug"
+    selectFooID="#foo"
+    selectBarID="#notfoo"
+    selectMaybeID="#maybe"
+    selectRememberMeTextSelector='text= Remember me'
+    selectIagreetotheTextSelector='text=  I agree to the '
     
-    readonly page: Page
-    constructor(page: Page) {
+
+    constructor(page) {
         this.page = page
-        webActions = new WebActions(this.page)
-        radioAndCheckboxPageObjects = new RadioAndCheckboxPageObjects()
     }
-    async navigateToUrl(): Promise<void> {
-        await webActions.navigateToURL("/radio")
+    async navigateToUrl() {
+        await this.page.goto("/radio")
     }
 
     async checkYesInSelectAnyOne(){
-        await webActions.checkElement(radioAndCheckboxPageObjects.Select_Any_One_Yes_ID)
+        await this.page.check(this.selectAnyOneYesID)
     }
     async checkNoInSelectOnlyOne(){
-        await webActions.checkElement(radioAndCheckboxPageObjects.Select_Only_One_No_ID)
+        await this.page.check(this.selectOnlyOneNoID)
     }
     async checkYesInFindBug(){
-        await webActions.checkElement(radioAndCheckboxPageObjects.Select_Find_Bug_Yes_ID)
+        await this.page.check(this.selectFindBugYesID)
     }
     async isBarIsSelected(){
-        await this.page.isChecked(radioAndCheckboxPageObjects.Select_Bar_ID)
+        return await this.page.isChecked(this.selectBarID)
     }
     async isMaybeIsDisabled(){
-        await this.page.isDisabled(radioAndCheckboxPageObjects.Select_Maybe_ID)
+        return await this.page.isDisabled(this.selectMaybeID)
     }
     async isRememberMeIsChecked(){
-        await this.page.isChecked(radioAndCheckboxPageObjects.Select_Remember_Me_Text_Selector)
+        return await this.page.isChecked(this.selectRememberMeTextSelector)
     }
-    async checkIAgreeToThe(){
-        await webActions.checkElement(radioAndCheckboxPageObjects.Select_I_agree_to_the_Text_Selector)
+    async checkIAgreeToTheCheckbox(){
+        await this.page.check(this.selectIagreetotheTextSelector)
     }
 }
+module.exports = RadioAndCheckboxPage;

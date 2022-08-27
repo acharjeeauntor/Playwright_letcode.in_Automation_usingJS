@@ -1,31 +1,23 @@
-import { Page } from "@playwright/test"
-import { WebActions } from "@lib/WebActions"
-import { WaitPageObjects } from "@objects/WaitPageObjects"
-
-let webActions: WebActions
-let waitPageObjects: WaitPageObjects
-
-export class WaitPage {
-    Alert_Btn_ID="#accept"
+class WaitPage {
+    alertBtnID="#accept"
     
-    readonly page: Page
-    constructor(page: Page) {
+
+    constructor(page) {
         this.page = page
-        webActions = new WebActions(this.page)
-        waitPageObjects = new WaitPageObjects()
+       
     }
-    async navigateToUrl(): Promise<void> {
-        await webActions.navigateToURL("/waits")
+    async navigateToUrl() {
+        await this.page.goto("/waits")
     }
 
-    async getSimpleBtnAlertMsg(): Promise<string> {
-        let alertMsg: string
+    async getSimpleBtnAlertMsg() {
+        let alertMsg
         try {
             this.page.on("dialog", async (alert) => {
                 alertMsg = alert.message()
                 await alert.accept()
             })
-            await webActions.clickElement(waitPageObjects.Alert_Btn_ID)
+            await this.page.click(this.alertBtnID)
             await this.page.waitForEvent("dialog")
             return alertMsg
         } catch {
@@ -34,3 +26,4 @@ export class WaitPage {
     }
 
 }
+module.exports = WaitPage;

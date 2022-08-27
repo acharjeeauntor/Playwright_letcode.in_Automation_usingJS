@@ -1,46 +1,39 @@
-import { Page, expect } from "@playwright/test"
-import { WebActions } from "@lib/WebActions"
-import { InputPageObjects } from "@objects/InputPageObjects"
-
-let webActions: WebActions
-let inputPageObjects: InputPageObjects
-
-export class InputPage {
-    Full_Name_Input_ID= "#fullName"
-    Keyboard_Tab_Input_ID= "#join"
-    Inside_TextBox_Input_ID= "#getMe"
-    Clear_Text_Input_ID= "#clearMe"
-    Readonly_Input_ID= "#dontwrite"
+class InputPage {
+    fullNameInputID= "#fullName"
+    keyboardTabInputID= "#join"
+    insideTextBoxInputID= "#getMe"
+    clearTextInputID= "#clearMe"
+    readonlyInputID= "#dontwrite"
     
-    readonly page: Page
-    constructor(page: Page) {
+    constructor(page) {
         this.page = page
-        webActions = new WebActions(this.page)
-        inputPageObjects = new InputPageObjects()
     }
-    async navigateToUrl(): Promise<void> {
-        await webActions.navigateToURL("/edit")
+    async navigateToUrl() {
+        await this.page.goto("/edit")
     }
-    async enterFullName(name: string):Promise<void> {
-        await webActions.enterElementText(inputPageObjects.Full_Name_Input_ID, name)
+    async enterFullName(name){
+        await this.page.fill(this.fullNameInputID, name)
     }
 
-    async clearInputField():Promise<void> {
-        await webActions.clearInputField(inputPageObjects.Clear_Text_Input_ID)
+    async clearInputField() {
+        await this.page.fill(this.clearTextInputID, "");
     }
-    async appendTextAndKeyboardTab(text:string):Promise<void> {
+    async appendTextAndKeyboardTab(text) {
         try{
-            webActions.waitForElementAttached(inputPageObjects.Keyboard_Tab_Input_ID)
-            const ele = this.page.locator(inputPageObjects.Keyboard_Tab_Input_ID)
+            await this.page.locator(this.keyboardTabInputID).waitFor()
+            const ele = this.page.locator(this.keyboardTabInputID)
             await ele.focus()
-            await this.page.keyboard.press('End')
+            await this.page.keyboard.press('End') 
             await ele.type(` ${text}`)
         }catch{
             console.log("Somthing wrong in InputPage")
         }
 
     }
-    async verifyTextBoxValue(text:string):Promise<void> {
-        await webActions.verifyElementAttribute(inputPageObjects.Inside_TextBox_Input_ID, 'value',text)
+    async getTextBoxValue() {
+        await this.page.waitForSelector(this.insideTextBoxInputID);
+        const textValue = await this.page.getAttribute(this.insideTextBoxInputID, 'value');
+        return textValue.trim()
     }
 }
+module.exports = InputPage;

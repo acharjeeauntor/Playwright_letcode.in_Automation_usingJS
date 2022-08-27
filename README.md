@@ -7,14 +7,18 @@ Automation https://letcode.in/ using playwright,POM pattern
 * Bundled Tools: Mocha, Chai
 * Language: Javascript,Typescript <br>
 * Report: Allure,html-report <br>
-* Dependency/Packages:{
-   "@playwright/test": "^1.20.2",
-   "@types/adm-zip": "^0.4.34",
+* "devDependencies": {
+    "@playwright/test": "^1.25.1"
+  },
+  "dependencies": {
+    "@types/adm-zip": "^0.4.34",
     "adm-zip": "^0.5.9",
     "allure-playwright": "^2.0.0-beta.15",
     "clipboardy": "^3.0.0",
-    "cross-env": "^7.0.3"
-} <br>
+    "cross-env": "^7.0.3",
+    "eslint": "^8.19.0",
+    "eslint-plugin-import": "^2.26.0"
+  } <br>
 * IDE: Visual Studio Code <br>
 
 ----------------------------------------------------------

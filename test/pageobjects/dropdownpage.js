@@ -1,51 +1,47 @@
-import { Page } from "@playwright/test"
-import { DropDownPageObjects } from "@objects/DropDownPageObjects"
-import { WebActions } from "@lib/WebActions"
-
-let webActions: WebActions
-let dropDownPageObjects: DropDownPageObjects
-export class DropDownPage {
-    Fruits_Dropdown_ID= "#fruits"
-    Selected_OptionText_Selector= ".content .subtitle"
-    Hero_DropDown_ID= "#superheros"
-    Language_Dropdown_ID= "#lang"
-    Language_Option_Selector_ID= "#lang option"
-    Country_Option_Selector_ID= "#country"
+class DropDownPage {
+    fruitsDropdownID= "#fruits"
+    selectedOptionTextSelector= ".content .subtitle"
+    heroDropDownID= "#superheros"
+    languageDropdownID= "#lang"
+    languageOptionSelectorID= "#lang option"
+    countryOptionSelectorID= "#country"
     
-    readonly page: Page
-    constructor(page: Page) {
+   
+    constructor(page) {
         this.page = page
-        webActions = new WebActions(this.page)
-        dropDownPageObjects = new DropDownPageObjects()
     }
 
-    async navigateToUrl(): Promise<void> {
-        await webActions.navigateToURL("/dropdowns")
+    async navigateToUrl(){
+        await this.page.goto("/dropdowns")
     }
 
-    async selectApple(fruit: string): Promise<void> {
-        await webActions.selectDropDownByLabel(dropDownPageObjects.Fruits_Dropdown_ID, fruit)
+    async selectApple(fruit){
+        await this.page.locator(this.fruitsDropdownID).waitFor()
+        await this.page.selectOption(this.fruitsDropdownID,{ label: fruit })
     }
-    async verifyFruitSelection(fruit: string): Promise<void> {
-        await webActions.verifyElementContainsText(dropDownPageObjects.Selected_OptionText_Selector, fruit)
+    async getFruitSelectionLocator(){
+        await this.page.locator(this.selectedOptionTextSelector).waitFor()
+        return await this.page.locator(this.selectedOptionTextSelector)
     }
-    async selectSuperHero(value: string): Promise<void> {
-        await webActions.selectDropDownByValue(dropDownPageObjects.Hero_DropDown_ID, value)
+    async selectSuperHero(value){
+        await this.page.locator(this.heroDropDownID).waitFor()
+        await this.page.selectOption(this.heroDropDownID,{ value: value })
     }
-    async verifyHeroSelection(name: string): Promise<void> {
-        await webActions.verifyElementContainsText(dropDownPageObjects.Selected_OptionText_Selector, name)
+    async getHeroSelectionLocator(){
+        await this.page.locator(this.selectedOptionTextSelector).waitFor()
+        return await this.page.locator(this.selectedOptionTextSelector)
     }
 
-    async printAllLangOptions(): Promise<string> {
+    async printAllLangOptions() {
         try {
-            const lang = await this.page.$$(dropDownPageObjects.Language_Option_Selector_ID)
+            const lang = await this.page.$$(this.languageOptionSelectorID)
             const len = lang.length
             for (var i = 0; i < len; i++) {
-                console.log(await this.page.locator(dropDownPageObjects.Language_Option_Selector_ID).nth(i).textContent())
+                console.log(await this.page.locator(this.languageOptionSelectorID).nth(i).textContent())
                 if (i === len - 1) {
-                    const ele = this.page.locator(dropDownPageObjects.Language_Dropdown_ID)
+                    const ele = this.page.locator(this.languageDropdownID)
                     await ele.selectOption({ index: len - 1 })
-                    return this.page.locator(dropDownPageObjects.Language_Option_Selector_ID).nth(len - 1).textContent()
+                    return this.page.locator(this.languageOptionSelectorID).nth(len - 1).textContent()
                 }
             }
         } catch {
@@ -54,12 +50,15 @@ export class DropDownPage {
 
     }
 
-    async verifyLanguageSelection(lan: string): Promise<void> {
-        await webActions.verifyElementContainsText(dropDownPageObjects.Selected_OptionText_Selector, lan)
+    async getLanguageSelectionLocator(){
+        await this.page.locator(this.selectedOptionTextSelector).waitFor()
+        return await this.page.locator(this.selectedOptionTextSelector)
     }
 
-    async selectCountry(value: string): Promise<void> {
-        await webActions.selectDropDownByValue(dropDownPageObjects.Country_Option_Selector_ID, value)
+    async selectCountry(value){
+        await this.page.locator(this.countryOptionSelectorID).waitFor()
+        await this.page.selectOption(this.countryOptionSelectorID,{ value: value })
     }
 
 }
+module.exports = DropDownPage

@@ -40,7 +40,7 @@ const config = {
   /* Configure projects for major browsers */
   projects: [
     {
-      name: `Chrome`,
+      name: `chrome`,
       //testDir:'./tests/functional',
       grepInvert:/@API/,
       use: {
@@ -89,7 +89,7 @@ const config = {
       name:"Functional",
       grep:/@Functional/,
       use: {
-        browserName: `firefox`,
+        browserName: `webkit`,
         baseURL: testConfig[process.env.ENV],
         headless: !true,
         viewport: { width: 1500, height: 730 },

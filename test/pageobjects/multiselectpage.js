@@ -1,38 +1,29 @@
-import { Page } from "@playwright/test"
-import { WebActions } from "@lib/WebActions"
-import { MultiSelectPageObjects } from "@objects/MultiSelectPageObjects"
+class MultiSelectPage {
+    seleniumElementSelector='text=Selenium'
+    protractorElementSelector='text=Protractor'
+    postmanElementSelector='text=Postman'
 
-let webActions: WebActions
-let multiSelectPageObjects: MultiSelectPageObjects
-
-export class MultiSelectPage {
-    Selenium_Element_Selector='text=Selenium'
-    Protractor_Element_Selector='text=Protractor'
-    Postman_Element_Selector='text=Postman'
-    
-    readonly page: Page
-    constructor(page: Page) {
+    constructor(page) {
         this.page = page
-        webActions = new WebActions(this.page)
-        multiSelectPageObjects = new MultiSelectPageObjects()
     }
-    async navigateToUrl(): Promise<void> {
-        await webActions.navigateToURL("/selectable")
+    async navigateToUrl() {
+        await this.page.goto("/selectable")
     }
 
-    async selectItem(): Promise<void> {
+    async selectItem() {
         // Click text=Selenium
-        await this.page.locator(multiSelectPageObjects.Selenium_Element_Selector).click({
+        await this.page.locator(this.seleniumElementSelector).click({
             modifiers: ['Control']
         });
         // Click text=Protractor
-        await this.page.locator(multiSelectPageObjects.Protractor_Element_Selector).click({
+        await this.page.locator(this.protractorElementSelector).click({
             modifiers: ['Control']
         });
         // Click text=Postman
-        await this.page.locator(multiSelectPageObjects.Postman_Element_Selector).click({
+        await this.page.locator(this.postmanElementSelector).click({
             modifiers: ['Control']
         });
     }
 
 }
+module.exports = MultiSelectPage;

@@ -1,54 +1,44 @@
-import{Page} from "@playwright/test"
-import { WebActions } from "@lib/WebActions"
-import { ElementsPageObjects } from "@objects/ElementsPageObjects"
-
-let webActions:WebActions
-let elementsPageObjects:ElementsPageObjects
-
-export class ElementsPage{
-    Username_Search_Input_Selector= "[name='username']"
-    UserImage_Selector= ".media img"
-    UserName_Selector=".media-content .title"
-    UserAddress_Selector= ".media-content .subtitle"
-    UserSkill_Selector= ".media-content span"
-    Repo_Link_Selector=".content ol li a"
+class ElementsPage{
+    usernameSearchInputSelector= "[name='username']"
+    userImageSelector= ".media img"
+    userNameSelector=".media-content .title"
+    userAddressSelector= ".media-content .subtitle"
+    userSkillSelector= ".media-content span"
+    repoLinkSelector=".content ol li a"
     
-    readonly page:Page
-    constructor(page:Page){
+    constructor(page){
         this.page=page
-        webActions = new WebActions(this.page)
-        elementsPageObjects = new ElementsPageObjects()
     }
 
-    async navigateToUrl(): Promise<void> {
-        await webActions.navigateToURL("/elements")
+    async navigateToUrl() {
+        await this.page.goto("/elements")
     }
 
-    async enterGitUsername(name:string) {
-        const ele =  this.page.locator(elementsPageObjects.Username_Search_Input_Selector)
+    async enterGitUsername(name) {
+        const ele =  this.page.locator(this.usernameSearchInputSelector)
         await ele.fill(name)
         await ele.press("Enter")
 
     }
 
-    async userImageSelector() {
-        await this.page.waitForSelector(elementsPageObjects.UserImage_Selector)
-        return this.page.locator(elementsPageObjects.UserImage_Selector)
+    async getuserImageLocator() {
+        await this.page.waitForSelector(this.userImageSelector)
+        return this.page.locator(this.userImageSelector)
         
     }
 
     async getUserInfo() {
-        const nameElement =  this.page.locator(elementsPageObjects.UserName_Selector)
-        const AddressElement =  this.page.locator(elementsPageObjects.UserAddress_Selector)
-        const skillElement =  this.page.locator(elementsPageObjects.UserSkill_Selector)
+        const nameElement =  this.page.locator(this.userNameSelector)
+        const AddressElement =  this.page.locator(this.userAddressSelector)
+        const skillElement =  this.page.locator(this.userSkillSelector)
         console.log("Name: "+ await nameElement.textContent())
         console.log("Address: "+await AddressElement.textContent())
         console.log("Skill: "+await skillElement.textContent())
     }
 
     async getTotalRepos(){
-        await this.page.waitForSelector(elementsPageObjects.Repo_Link_Selector)
-        const repos = await this.page.$$(elementsPageObjects.Repo_Link_Selector)
+        await this.page.waitForSelector(this.repoLinkSelector)
+        const repos = await this.page.$$(this.repoLinkSelector)
          for await(const repo of repos){
              console.log(await repo.innerText())
         }
@@ -56,6 +46,5 @@ export class ElementsPage{
         return repos.length
     }
 
-
-
 }
+module.exports = ElementsPage;

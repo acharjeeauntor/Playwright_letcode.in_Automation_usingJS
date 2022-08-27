@@ -15,7 +15,7 @@ class ButtonPage {
     }
 
     async clickGoToHomeBtn() {
-        await this.page.locator(this.homeBtnID).waitFor().click()
+        await this.page.click(this.homeBtnID)
     }
 
     async getPageUrl() {
@@ -25,7 +25,7 @@ class ButtonPage {
         this.page.goBack()
     }
     async getBGColorCode() {
-        await this.waitForElementAttached(this.colorBtnID);
+        await this.page.waitForSelector(this.colorBtnID);
         const code = await this.page.locator(this.colorBtnID).evaluate((el) => {
             return window.getComputedStyle(el).getPropertyValue('background-color');
         });
@@ -36,13 +36,13 @@ class ButtonPage {
 
     }
     async clickAndHoldButton() {
-        await this.waitForElementAttached(this.holdBtnSelector);
+        await this.page.waitForSelector(this.holdBtnSelector);
         await this.page.click(this.holdBtnSelector, {
             delay: 5000
         });
     }
     async getHoldBtnTextLocator() {
-        await this.page.locator(this.holdBtnText)
+       return await this.page.locator(this.holdBtnText)
     }
 
 }

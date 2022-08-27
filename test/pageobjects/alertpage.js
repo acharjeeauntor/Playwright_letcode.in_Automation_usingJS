@@ -26,7 +26,7 @@ class AlertPage {
                 //console.log(dialog.type())
                 await dialog.accept()
             })
-            await this.page.locator(this.simpleAlertBtnID).waitFor().click()
+            await this.page.click(this.simpleAlertBtnID)
             return alertMsg
         } catch {
             console.log(`Somting Wrong in getSimpleAlertMsg() Function`)
@@ -44,7 +44,7 @@ class AlertPage {
                 await dialog.dismiss()
 
             })
-            await this.page.locator(this.confirmAlertBtnID).waitFor().click()
+            await this.page.click(this.confirmAlertBtnID)
             return confirmMsg
         } catch {
             console.log(`Somting Wrong in getConfirmAlertMsg() Function`)
@@ -56,7 +56,7 @@ class AlertPage {
         this.page.on('dialog', async (dialog) => {
             await dialog.accept(name)
         })
-        await this.page.locator(this.promptAlertBtnID).waitFor().click()
+        await this.page.click(this.promptAlertBtnID)
     }
 
     async getNamePromptLocator() {

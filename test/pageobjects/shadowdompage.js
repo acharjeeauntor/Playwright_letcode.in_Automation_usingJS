@@ -1,31 +1,23 @@
-import { WebActions } from "@lib/WebActions"
-import { ShadowDomPageObjects } from "@objects/ShadowDomPageObjects";
-import { Page } from "@playwright/test"
-
-let webActions: WebActions
-let shadowDomPageObjects: ShadowDomPageObjects
-export class ShadowDomPage {
-    First_Name_Input_ID= "#fname"
-    Last_Name_Input_ID= "#lname"
-    Email_Input_ID= "#email"
+class ShadowDomPage {
+    firstNameInputID= "#fname"
+    lastNameInputID= "#lname"
+    emailInputID= "#email"
     
-    readonly page: Page
-    constructor(page: Page) {
+    constructor(page) {
         this.page = page
-        webActions = new WebActions(this.page)
-        shadowDomPageObjects = new ShadowDomPageObjects()
     }
-    async navigateToUrl(): Promise<void> {
-        await webActions.navigateToURL("/shadow")
+    async navigateToUrl() {
+        await this.page.goto("/shadow")
     }
 
-    async enterFirstName(name: string): Promise<void> {
-        await webActions.enterElementText(shadowDomPageObjects.First_Name_Input_ID,name)
+    async enterFirstName(name) {
+        await this.page.fill(this.firstNameInputID,name)
     }
-    async enterLastName(name: string): Promise<void> {
-        await webActions.enterElementText(shadowDomPageObjects.Last_Name_Input_ID,name)
+    async enterLastName(name) {
+        await this.page.fill(this.lastNameInputID,name)
     }
-    async enterEmail(email: string): Promise<void> {
-        await webActions.enterElementText(shadowDomPageObjects.Email_Input_ID,email)
+    async enterEmail(email){
+        await this.page.fill(this.emailInputID,email)
     }
 }
+module.exports = ShadowDomPage;
