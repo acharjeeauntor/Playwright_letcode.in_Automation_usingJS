@@ -2,3 +2,4 @@ node_modules/
 allure-results/
 html-report/
 html-report.zip
+test-results/
