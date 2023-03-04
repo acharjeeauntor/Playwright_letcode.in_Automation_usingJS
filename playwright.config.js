@@ -51,7 +51,7 @@ const config = {
         //Picks Base Url based on User input
         baseURL: testConfig[process.env.ENV],
         //Browser Mode
-        headless: !true,
+        headless: true,
         //Browser height and width
         viewport: { width: 1600, height: 900 },
         ignoreHTTPSErrors: true,
