@@ -1,22 +1,15 @@
 pipeline {
-  agent { 
-    docker { 
-      image 'mcr.microsoft.com/playwright:v1.17.2-focal'
-    } 
-  }
-  stages {
-    stage('install playwright') {
-      steps {
-        sh '''
-          npm i -D @playwright/test
-          npx playwright install
-        '''
-      }
+    agent any
+    stages {
+        stage('Pull') {
+            steps {
+                sh 'docker pull auntoracharja/letcode-smoke-and-api-test-automation:v2.0'
+            }
+        }
+        stage('Run') {
+            steps {
+                sh 'docker run auntoracharja/letcode-smoke-and-api-test-automation:v2.0'
+            }
+        }
     }
-    stage('help') {
-      steps {
-        sh 'npx cross-env ENV=functional npm run test:single'
-      }
-    }
-  }
 }
