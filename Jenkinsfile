@@ -11,5 +11,10 @@ pipeline {
                 sh 'docker run auntoracharja/letcode-smoke-and-api-test-automation:latest'
             }
         }
+        stage('Show Report') {
+            steps {
+                sh 'npx playwright show-report html-report'
+            }
+        }
     }
 }
