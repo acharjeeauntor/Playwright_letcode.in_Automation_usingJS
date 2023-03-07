@@ -46,8 +46,6 @@ const config = {
       use: {
         // Configure the browser to use.
         browserName: `chromium`,
-        //Chrome Browser Config
-        channel: `chrome`,
         //Picks Base Url based on User input
         baseURL: testConfig[process.env.ENV],
         //Browser Mode
@@ -67,6 +65,7 @@ const config = {
         },
       },
     },
+    
     {
       name:"Smoke",
       grep:/@Smoke/,
