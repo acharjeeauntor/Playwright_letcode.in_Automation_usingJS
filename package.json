@@ -9,6 +9,7 @@
     "headed": "npx playwright test --headed --reporter=list",
     "debug": "npx playwright test --debug",
     "test:single": "npx playwright test windows.spec.js --project=chrome",
+    "test:headless": "npx playwright test windows.spec.js --project=headlessTest",
     "test:parallel": "npx playwright test --grep @Smoke --project=chrome",
     "test:serial": "npx playwright test --grep @Smoke --workers=1 --project=chrome",
     "test:functional":"npx playwright test --project=Functional --workers=4",

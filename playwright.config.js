@@ -49,7 +49,7 @@ const config = {
         //Picks Base Url based on User input
         baseURL: testConfig[process.env.ENV],
         //Browser Mode
-        headless: !true,
+        headless: false,
         //Browser height and width
         viewport: { width: 1600, height: 900 },
         ignoreHTTPSErrors: true,
@@ -65,7 +65,24 @@ const config = {
         },
       },
     },
-    
+    {
+      name: `headlessTest`,
+      grepInvert:/@API/,
+      use: {
+        browserName: `chromium`,
+        baseURL: testConfig[process.env.ENV],
+        headless: true,
+        viewport: { width: 1600, height: 900 },
+        ignoreHTTPSErrors: true,
+        acceptDownloads: true,
+        screenshot: `only-on-failure`,
+        video: `retain-on-failure`,
+        trace: `retain-on-failure`,
+        launchOptions: {
+          slowMo: 0
+        },
+      },
+    },
     {
       name:"Smoke",
       grep:/@Smoke/,
