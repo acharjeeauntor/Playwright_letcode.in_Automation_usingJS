@@ -49,7 +49,7 @@ const config = {
         //Picks Base Url based on User input
         baseURL: testConfig[process.env.ENV],
         //Browser Mode
-        headless: true,
+        headless: !true,
         //Browser height and width
         viewport: { width: 1600, height: 900 },
         ignoreHTTPSErrors: true,
@@ -124,7 +124,6 @@ const config = {
       name: `Edge`,
       use: {
         browserName: `chromium`,
-        channel: `msedge`,
         baseURL: testConfig[process.env.ENV],
         headless: false,
         viewport: { width: 1500, height: 730 },
