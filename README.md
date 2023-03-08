@@ -79,5 +79,15 @@ The following software are required:
 1. I have created a docker image to make the test script run easily. If the docker is installed on the user's Pc then the user can run this script very easy way without setup the playwright/node environment. Docker image will handle all the environment setup. This docker image will run the smoke & API script only for now. I will add other's script step by step in the future. This docker image was tested in Linux & Windows OS.<br>
 
 Docker image: https://hub.docker.com/r/auntoracharja/letcode-smoke-and-api-test-automation <br>
-To See the Demo Video click [here](https://youtu.be/0E6P0898Olk)
+To See the Demo Video click [here](https://youtu.be/0E6P0898Olk)<br>
 
+----------------------------------------------------------
+
+## Jenkins Related Info:<br>
+1. Run playwright test script Docker image through the jenkins pipeline <br>
+
+Docker image: https://hub.docker.com/r/auntoracharja/letcode-smoke-and-api-test-automation <br>
+To See the Demo Video click [here](https://youtu.be/S1SeGgnjNM4)
+
+2. Take playwright test script from Github Repository and Run in jenkins <br>
+To See the Demo Video click [here](https://youtu.be/rAWLXwN3Jp4)
