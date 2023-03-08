@@ -87,7 +87,16 @@ To See the Demo Video click [here](https://youtu.be/0E6P0898Olk)<br>
 1. Run playwright test script Docker image through the jenkins pipeline <br>
 
 Docker image: https://hub.docker.com/r/auntoracharja/letcode-smoke-and-api-test-automation <br>
-To See the Demo Video click [here](https://youtu.be/S1SeGgnjNM4)
+To See the Demo Video click [here](https://youtu.be/S1SeGgnjNM4)<br>
 
 2. Take playwright test script from Github Repository and Run in jenkins <br>
-To See the Demo Video click [here](https://youtu.be/rAWLXwN3Jp4)
+To See the Demo Video click [here](https://youtu.be/rAWLXwN3Jp4)<br>
+
+
+----------------------------------------------------------
+
+## Github Action Related Info:<br>
+1. I have added github actions in this project to test my script in CI way <br>
+
+You can read this content for more about intregation Github Action in Playwright: https://playwright.dev/docs/ci-intro <br>
+To See the Demo Video click [here](https://youtu.be/5b3cAz5THr8)
