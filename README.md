@@ -23,6 +23,11 @@ Automation https://letcode.in/ using playwright,POM pattern
 
 ----------------------------------------------------------
 
+## Project Architecture: <br>
+![Playwright_project_Arch](https://user-images.githubusercontent.com/38497405/232031171-f934edad-f50f-4bcb-ac10-aa36e99ddc7f.png)
+
+----------------------------------------------------------
+
 ## Requirement:<br>
 1. Automate https://letcode.in/test UI
 2. Automate Simple Book API
